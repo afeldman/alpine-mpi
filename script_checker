@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+set -e
+
+echo "---- Check shell scripts styling with ShellCheck ----"
+
+docker pull afeldman/shellcheck
+alias shellcheck='docker run --rm -it -v $(pwd):/mnt:z afeldman/shellcheck:latest'
+
+shellcheck --version
+
+shellcheck  onbuild/scripts/auto_update_hosts   \
+            onbuild/scripts/get_hosts           \
+            onbuild/scripts/mpi_bootstrap       \
+
+echo "=> No styling trouble found"
